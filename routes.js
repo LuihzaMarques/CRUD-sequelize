@@ -22,7 +22,7 @@ router.get("/alunos", (req,res)=>{
 });
 
 //endpoint de criação de alunos (create) --
-router.post('/alunos', (req,rest)=>{
+router.post('/alunos', (req,res)=>{
 
   const {nome, idade} = req.body;
 
@@ -76,7 +76,7 @@ router.delete('/alunos/:id', (req,res)=>{
 // CRUD PARA AS AULAS
 
 //endpoint de criação de aula (Create)
-router.post("/alunos", (req,res)=>{
+router.post("/aulas", (req,res)=>{
   const { nome_aula, descricao } = req.body;
 
   const query = `INSERT INTO aula (nome_aula, descricao) VALUE ('${nome_aula}', '${descricao}')`;
@@ -91,7 +91,7 @@ router.post("/alunos", (req,res)=>{
 });
 
 //endpoint de leitura de aulas (Read)
-router.get('/alunas', (req,res) =>{
+router.get('/aulas', (req,res) =>{
   const query = 'SELECT * FROM aulas';
 
   db.query(query, (err, result)=>{
