@@ -8,23 +8,6 @@ const port = 3000;app
 
 app.use(bodyParser.json());
 
-const routes = require('./routes')
-
-
-db.connect(err => {
-  if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
-    return;
-  }
-  console.log('Conectado ao banco de dados MySQL');
-});
-
-app.use('/', routes);
-
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta : ${port}`)
-})
-
 //endpoint de leitura de alunos(read)
 router.get("/alunos", (req,res)=>{
   const query = "SELECT * FROM alunos";
@@ -127,7 +110,26 @@ router.put('/aulas/:id', (req, res)=>{
 
   const query = `UPDATE aulas SET nome_aula='${nome_aula}', descricao='${descricao}' WHERE id_aula=${id}`;
 
-  db.query(query(err, result) => { 
+  db.query(query, (err,result) =>{
+    if(err){
+      res.status(500).send('Erro ao atualizar aula');
+    } else {
+      res.send('Aula atualizada com sucesso');
+    }
+  });
+});
 
-  })
-})
+//endpoint de exclusão de aula (DELETE)
+router.delete('/aulas/:id', (req,res)=>{
+  const { id } = req.params;
+
+  const query = `DELETE FROM aulas WHERE id_aula=${id}`;
+
+  db.query(query, (err,result)=>{
+    if(err){
+      res.status(500).send('Erro ao excluir aula');
+    } else {
+      res.send('Aula exlcuída com sucesso');
+    }
+  });
+});
