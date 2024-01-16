@@ -112,7 +112,7 @@ router.put('/aulas/:id', (req, res)=>{
 
   db.query(query, (err,result) =>{
     if(err){
-      res.status(500).send('Erro ao atualizar aula');
+      res.status(500).send(`Erro ao atualizar aula: ${JSON.stringify(err)}`);
     } else {
       res.send('Aula atualizada com sucesso');
     }
@@ -127,9 +127,11 @@ router.delete('/aulas/:id', (req,res)=>{
 
   db.query(query, (err,result)=>{
     if(err){
-      res.status(500).send('Erro ao excluir aula');
+      res.status(500).send(`Erro ao excluir aula: ${JSON.stringify(err)}`);
     } else {
       res.send('Aula exlcuída com sucesso');
     }
   });
 });
+
+
